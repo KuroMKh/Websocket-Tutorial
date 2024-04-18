@@ -1,24 +1,135 @@
-<div id="alert"></div>
-<img id="video" />
-<script>
-  var websocket = new WebSocket("ws://192.168.1.216:1234/");
-  websocket.onopen = onOpen;
-  websocket.onclose = onClose;
-  websocket.onmessage = onMessage;
-  websocket.onerror = onError;
+<!DOCTYPE html>
+<!-- This line tells the browser that this document is written in HTML -->
 
-  function onOpen() {
-    document.getElementById("alert").innerHTML = "Connected";
-  }
-  function onClose() {
-    document.getElementById("alert").innerHTML = "Close";
-  }
-  function onMessage(evt) {
-    var data = evt.data;
-    document.getElementById("video").src = data;
-    //document.getElementById("alert").innerHTML = "Received: " + data + "<br>";
-  }
-  function onError() {
-    document.getElementById("alert").innerHTML = "Error";
-  }
-</script>
+<html lang="en">
+  <!-- This line specifies that the language used in this document is English -->
+
+  <head>
+    <!-- This section contains metadata for the document, like character encoding and viewport settings -->
+
+    <meta charset="UTF-8" />
+    <!-- This line sets the character encoding of the document to UTF-8, which supports various characters and symbols -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- This line sets the viewport settings to control how the webpage appears on different devices with varying screen sizes -->
+
+    <link rel="icon" type="image/x-icon" href="stream.png" />
+    <!--This line sets the icon in the browser tab-->
+
+    <title>Client</title>
+    <!-- This line sets the title of the webpage shown in the browser tab -->
+
+    <link href="styles.css" rel="stylesheet" />
+    <!-- This line links an external CSS file named "styles.css" to style the webpage -->
+
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- This line links the Bootstrap CSS library to provide predefined styles and components -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- This line links the Font Awesome CSS library to use icons in the webpage -->
+  </head>
+
+  <body>
+    <!-- This section contains the visible content of the webpage -->
+
+    <header class="header-container">
+      <!-- This line starts the header section -->
+
+      <h1 class="mb-0"><i class="fas fa-video"></i> Client</h1>
+      <!-- This line defines the main heading of the webpage, including an icon -->
+    </header>
+
+    <div id="alert" class="alert alert-info"></div>
+    <!-- This line creates a placeholder element for displaying alerts -->
+
+    <main class="container-fluid">
+      <!-- This line starts the main content section of the webpage -->
+
+      <div class="row">
+        <!-- This line creates a row to organize content horizontally -->
+
+        <div class="col text-center">
+          <!-- This line creates a column to align content in the center -->
+
+          <h2 style="color: #c1c7c9"><strong> Image Received:</strong></h2>
+          <!-- This line defines a sub-heading with bold text and sets its color -->
+
+          <div class="video-container">
+            <!-- This line creates a container to display video -->
+
+            <img id="video" />
+            <!-- This line creates an image element with the ID "video" for displaying received images -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="custom-footer">
+      <!-- This line starts the footer section of the webpage -->
+
+      <h3 class="mb-0">
+        &copy; 2024 Muhammad Khilfi - 067797. All rights reserved.
+        <!-- This line displays copyright information -->
+
+        <span class="tm-symbol">&#8482;</span>
+        <!-- This line displays the trademark symbol -->
+      </h3>
+    </footer>
+
+    <script>
+      // JavaScript code starts here
+
+      var websocket = new WebSocket("ws://192.168.1.216:1234/");
+      // This line creates a WebSocket object to establish a connection with a server
+
+      websocket.onopen = onOpen;
+      // This line assigns the onOpen function to execute when the WebSocket connection is established
+
+      websocket.onclose = onClose;
+      // This line assigns the onClose function to execute when the WebSocket connection is closed
+
+      websocket.onmessage = onMessage;
+      // This line assigns the onMessage function to execute when a message is received from the server
+
+      websocket.onerror = onError;
+      // This line assigns the onError function to execute when an error occurs in the WebSocket connection
+
+      function onOpen() {
+        // This function is executed when the WebSocket connection is successfully opened
+
+        document.getElementById("alert").innerHTML = "Client Connected";
+        // This line changes the content of the alert placeholder to indicate that the client is connected
+      }
+
+      function onClose() {
+        // This function is executed when the WebSocket connection is closed
+
+        document.getElementById("alert").innerHTML = "Server Close";
+        // This line changes the content of the alert placeholder to indicate that the server is closed
+      }
+
+      function onMessage(evt) {
+        // This function is executed when a message is received from the server
+
+        var data = evt.data;
+        // This line extracts the data from the received message
+
+        document.getElementById("video").src = data;
+        // This line sets the source of the video element to the received data
+      }
+
+      function onError() {
+        // This function is executed when an error occurs in the WebSocket connection
+
+        document.getElementById("alert").innerHTML = "Error";
+        // This line changes the content of the alert placeholder to indicate an error
+      }
+    </script>
+  </body>
+</html>
